@@ -4,18 +4,16 @@ import { applyMiddleware, createStore } from "redux";
 import createLogger from "redux-logger";
 
 
-const todo = (state = [], action) => {
-    
-};
-
+/* Reducers
+============================= */
 const todos = (state = [], action) => {
     switch (action.type) {
         case "ADD_TODO":
             return [
                 ...state,
                 {
-                    id: action.id,
-                    text: action.text,
+                    id:        action.id,
+                    text:      action.text,
                     completed: false
                 }
             ];
@@ -31,24 +29,30 @@ const todos = (state = [], action) => {
     }
 };
 
-const  logger = createLogger();
-const store = createStore(todos, applyMiddleware(logger));
+const logger = createLogger();
+const store  = createStore(todos, applyMiddleware(logger));
 
-store.dispatch({type: "ADD_TODO", id: 0, text: "Something new"});
-store.dispatch({type: "TOGGLE_TODO", id: 0});
 
-// Tests
+/* Dispatch actions
+============================= */
+store.dispatch({ type: "ADD_TODO", id: 0, text: "Learn Redux!" });
+store.dispatch({ type: "ADD_TODO", id: 1, text: "Go to the gym" });
+store.dispatch({ type: "TOGGLE_TODO", id: 1 });
+
+
+/* Tests
+============================= */
 const testAddTodo = () => {
     const stateBefore = [];
-    const action = {
+    const action      = {
         type: "ADD_TODO",
-        id: 0,
+        id:   0,
         text: "Learn Redux"
     };
-    const stateAfter = [
+    const stateAfter  = [
         {
-            id: 0,
-            text: "Learn Redux",
+            id:        0,
+            text:      "Learn Redux",
             completed: false
         }
     ];
@@ -62,39 +66,39 @@ const testAddTodo = () => {
 const testToggleTodo = () => {
     const stateBefore = [
         {
-            id: 0,
-            text: "Learn Redux",
+            id:        0,
+            text:      "Learn Redux",
             completed: false
         },
         {
-            id: 1,
-            text: "Walk the dog",
+            id:        1,
+            text:      "Walk the dog",
             completed: false
         },
         {
-            id: 2,
-            text: "Buy milk",
+            id:        2,
+            text:      "Buy milk",
             completed: false
         },
     ];
-    const action = {
+    const action      = {
         type: "TOGGLE_TODO",
-        id: 1
+        id:   1
     };
-    const stateAfter = [
+    const stateAfter  = [
         {
-            id: 0,
-            text: "Learn Redux",
+            id:        0,
+            text:      "Learn Redux",
             completed: false
         },
         {
-            id: 1,
-            text: "Walk the dog",
+            id:        1,
+            text:      "Walk the dog",
             completed: true
         },
         {
-            id: 2,
-            text: "Buy milk",
+            id:        2,
+            text:      "Buy milk",
             completed: false
         },
     ];
