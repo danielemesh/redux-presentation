@@ -11,12 +11,13 @@ import { addTodo, toggleTodo, setVisibilityFilter, SHOW_COMPLETED } from "./acti
 ============================= */
 const todoList = $(".todo-list");
 const todoField = $(".todo-field");
+const submitBtn = $(".submit-btn");
 
 const render = () => {
     let todos = store.getState().todos;
     
     let listItems = todos.map(todo => {
-        return `<li id="todo_${todo.id}">${todo.text}</li>`;
+        return `<li id="${todo.id}" class="todo-item">${todo.text}</li>`;
     });
     
     todoList.html(listItems);
@@ -31,15 +32,15 @@ render();
 
 /* Dispatch actions
  ============================= */
-//store.dispatch(addTodo("Learn Redux!"));
-//store.dispatch(addTodo("Go home!"));
+store.dispatch(addTodo("Learn Redux!"));
+store.dispatch(addTodo("Go home!"));
 //store.dispatch(toggleTodo(1));
 //store.dispatch(setVisibilityFilter(SHOW_COMPLETED));
 
 
 /* UI related code
 ============================= */
-$(".submit-btn").click(event => {
+submitBtn.click(event => {
     event.preventDefault();
     
     let todoText = todoField.val();
@@ -47,5 +48,13 @@ $(".submit-btn").click(event => {
     if (todoText !== "") {
         store.dispatch(addTodo(todoText));
         todoField.val("");
+    }
+});
+
+todoList.click(".todo-item", (event) => {
+    let id = Number(event.target.id);
+    
+    if (!isNaN(id)) {
+        store.dispatch(toggleTodo(id));
     }
 });
