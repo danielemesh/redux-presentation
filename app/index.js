@@ -17,7 +17,9 @@ const render = () => {
     let todos = store.getState().todos;
     
     let listItems = todos.map(todo => {
-        return `<li id="${todo.id}" class="todo-item">${todo.text}</li>`;
+        let completedClass = todo.completed ? "completed" : "";
+        
+        return `<li id="${todo.id}" class="todo-item ${completedClass}">${todo.text}</li>`;
     });
     
     todoList.html(listItems);
