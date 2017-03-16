@@ -7,6 +7,11 @@ import { todoApp } from "./reducers"
 import { addTodo, toggleTodo, setVisibilityFilter, SHOW_COMPLETED } from "./actions";
 
 
+/* DOM elements
+============================= */
+const todoList = $(".todo-list");
+const todoField = $(".todo-field");
+
 const render = () => {
     let todos = store.getState().todos;
     
@@ -14,7 +19,7 @@ const render = () => {
         return `<li id="todo_${todo.id}">${todo.text}</li>`;
     });
     
-    $(".todo-list").html(listItems);
+    todoList.html(listItems);
 };
 
 const logger = createLogger();
@@ -26,21 +31,21 @@ render();
 
 /* Dispatch actions
  ============================= */
-store.dispatch(addTodo("Learn Redux!"));
-store.dispatch(addTodo("Go home!"));
-store.dispatch(toggleTodo(1));
-store.dispatch(setVisibilityFilter(SHOW_COMPLETED));
+//store.dispatch(addTodo("Learn Redux!"));
+//store.dispatch(addTodo("Go home!"));
+//store.dispatch(toggleTodo(1));
+//store.dispatch(setVisibilityFilter(SHOW_COMPLETED));
 
 
 /* UI related code
 ============================= */
-$("#submitBtn").click(event => {
+$(".submit-btn").click(event => {
     event.preventDefault();
     
-    let todoField = $("#todoField");
     let todoText = todoField.val();
     
-    store.dispatch(addTodo(todoText));
-    
-    todoField.val("");
+    if (todoText !== "") {
+        store.dispatch(addTodo(todoText));
+        todoField.val("");
+    }
 });
