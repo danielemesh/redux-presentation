@@ -1,9 +1,9 @@
 import expect from "expect";
 import deepFreeze from "deep-freeze-strict";
+import *  as $ from "jquery";
 
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import createLogger from "redux-logger";
-
 
 /* Reducers
  ============================= */
@@ -56,16 +56,23 @@ const todoApp = combineReducers({
     visibilityFilter
 });
 
+const render = () => {
+    return `<li id="todo_${todo.id}">${todo.text}</li>`;
+};
+
 const logger = createLogger();
 const store  = createStore(todoApp, applyMiddleware(logger));
+
+store.subscribe(render);
+render();
 
 
 /* Dispatch actions
  ============================= */
-store.dispatch({ type: "ADD_TODO", id: 0, text: "Learn Redux!" });
-store.dispatch({ type: "ADD_TODO", id: 1, text: "Go to the gym" });
-store.dispatch({ type: "TOGGLE_TODO", id: 1 });
-store.dispatch({ type: "SET_VISIBILITY_FILTER", filter: "SHOW_COMPLETED" });
+//store.dispatch({ type: "ADD_TODO", id: 0, text: "Learn Redux!" });
+//store.dispatch({ type: "ADD_TODO", id: 1, text: "Go to the gym" });
+//store.dispatch({ type: "TOGGLE_TODO", id: 1 });
+//store.dispatch({ type: "SET_VISIBILITY_FILTER", filter: "SHOW_COMPLETED" });
 
 
 /* Tests
@@ -141,3 +148,19 @@ testAddTodo();
 testToggleTodo();
 
 console.log("All Tests are passed!");
+
+
+/* UI related code
+============================= */
+$("#submitBtn").click(event => {
+    event.preventDefault();
+    
+    let todoField = $("#todoField");
+    let todoText = todoField.val();
+    
+    store.dispatch({ type: "ADD_TODO", id: 0, text: todoText });
+    
+    $(".todo-list").append(`<li>${todoText}</li>`);
+    
+    todoField.val("");
+});
