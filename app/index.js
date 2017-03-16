@@ -1,6 +1,6 @@
 import expect from "expect";
 import deepFreeze from "deep-freeze-strict";
-import *  as $ from "jquery";
+import $ from "jquery";
 
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import createLogger from "redux-logger";
@@ -57,7 +57,13 @@ const todoApp = combineReducers({
 });
 
 const render = () => {
-    return `<li id="todo_${todo.id}">${todo.text}</li>`;
+    let todos = store.getState().todos;
+    
+    let listItems = todos.map(todo => {
+        return `<li id="todo_${todo.id}">${todo.text}</li>`;
+    });
+    
+    $(".todo-list").html(listItems);
 };
 
 const logger = createLogger();
@@ -159,8 +165,6 @@ $("#submitBtn").click(event => {
     let todoText = todoField.val();
     
     store.dispatch({ type: "ADD_TODO", id: 0, text: todoText });
-    
-    $(".todo-list").append(`<li>${todoText}</li>`);
     
     todoField.val("");
 });
