@@ -6,7 +6,7 @@ import { ADD_TODO, TOGGLE_TODO, SHOW_ALL, SET_VISIBILITY_FILTER } from "./action
 
 /* Reducers
 ============================= */
-export const todo = (state, action) => {
+const todo = (state, action) => {
     switch (action.type) {
         case ADD_TODO:
             return {
@@ -27,7 +27,7 @@ export const todo = (state, action) => {
     }
 };
 
-export const todos = (state = [], action) => {
+const todos = (state = [], action) => {
     switch (action.type) {
         case ADD_TODO:
             return [
@@ -41,7 +41,7 @@ export const todos = (state = [], action) => {
     }
 };
 
-export const visibilityFilter = (state = SHOW_ALL, action) => {
+const visibilityFilter = (state = SHOW_ALL, action) => {
     switch (action.type) {
         case SET_VISIBILITY_FILTER:
             return action.filter;
