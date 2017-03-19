@@ -4,17 +4,31 @@ import { applyMiddleware, createStore } from "redux";
 import createLogger from "redux-logger";
 
 import { todoApp } from "./reducers"
-import { addTodo, toggleTodo, setVisibilityFilter, SHOW_COMPLETED } from "./actions";
+import { addTodo, toggleTodo, setVisibilityFilter, SHOW_COMPLETED, SHOW_ALL, SHOW_ACTIVE } from "./actions";
 
 
 /* DOM elements
-============================= */
-const todoList = $(".todo-list");
+ ============================= */
+const todoList  = $(".todo-list");
 const todoField = $(".todo-field");
 const submitBtn = $(".submit-btn");
+const radioBtns = $(".radio");
+
+const getVisibleTodos = (todos, filter) => {
+    switch (filter) {
+        case SHOW_ALL:
+            return todos;
+        case SHOW_COMPLETED:
+            return todos.filter(t => t.completed);
+        case SHOW_ACTIVE:
+            return todos.filter(t => !t.completed);
+        default:
+            return todos;
+    }
+};
 
 const render = () => {
-    let todos = store.getState().todos;
+    let todos = getVisibleTodos(store.getState().todos, store.getState().visibilityFilter);
     
     let listItems = todos.map(todo => {
         let completedClass = todo.completed ? "completed" : "";
@@ -41,7 +55,7 @@ store.dispatch(addTodo("Go home!"));
 
 
 /* UI related code
-============================= */
+ ============================= */
 submitBtn.click(event => {
     event.preventDefault();
     
@@ -58,5 +72,13 @@ todoList.click(".todo-item", (event) => {
     
     if (!isNaN(id)) {
         store.dispatch(toggleTodo(id));
+    }
+});
+
+radioBtns.click(event => {
+    let filter = event.target.value;
+    
+    if (filter) {
+        store.dispatch(setVisibilityFilter(filter));
     }
 });
