@@ -7,7 +7,7 @@ import { todoApp } from "./reducers";
 import { addTodo, toggleTodo, setVisibilityFilter, filters, SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED } from "./actions";
 
 const logger = createLogger();
-const store  = createStore(todoApp, applyMiddleware(logger));
+const store  = createStore(todoApp, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(logger));
 
 /* DOM elements
  ============================= */
