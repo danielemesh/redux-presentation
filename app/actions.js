@@ -10,6 +10,21 @@ export const SHOW_ALL = "SHOW_ALL";
 export const SHOW_ACTIVE = "SHOW_ACTIVE";
 export const SHOW_COMPLETED = "SHOW_COMPLETED";
 
+export const filters = [
+    {
+        id: SHOW_ALL,
+        display: "All",
+    },
+    {
+        id: SHOW_ACTIVE,
+        display: "Active"
+    },
+    {
+        id: SHOW_COMPLETED,
+        display: "Completed"
+    }
+];
+
 let nextTodoId = 0;
 
 /* Action Creators
