@@ -11,9 +11,9 @@ const store  = createStore(todoApp, window.__REDUX_DEVTOOLS_EXTENSION__ && windo
 
 /* DOM elements
  ============================= */
-const submitBtn = $(".submit-btn");
-const todoField = $(".todo-field");
-const todoList  = $(".todo-list");
+const submitBtn   = $(".submit-btn");
+const todoField   = $(".todo-field");
+const todoList    = $(".todo-list");
 const filtersElem = $(".filters");
 
 const getVisibleTodos = (todos, filter) => {

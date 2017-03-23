@@ -1,26 +1,26 @@
 /* Todos Actions
-============================= */
-export const ADD_TODO = "ADD_TODO";
+ ============================= */
+export const ADD_TODO    = "ADD_TODO";
 export const TOGGLE_TODO = "TOGGLE_TODO";
 
 /* Filter Actions
-============================= */
+ ============================= */
 export const SET_VISIBILITY_FILTER = "SET_VISIBILITY_FILTER";
-export const SHOW_ALL = "SHOW_ALL";
-export const SHOW_ACTIVE = "SHOW_ACTIVE";
-export const SHOW_COMPLETED = "SHOW_COMPLETED";
+export const SHOW_ALL              = "SHOW_ALL";
+export const SHOW_ACTIVE           = "SHOW_ACTIVE";
+export const SHOW_COMPLETED        = "SHOW_COMPLETED";
 
 export const filters = [
     {
-        id: SHOW_ALL,
+        id:      SHOW_ALL,
         display: "All",
     },
     {
-        id: SHOW_ACTIVE,
+        id:      SHOW_ACTIVE,
         display: "Active"
     },
     {
-        id: SHOW_COMPLETED,
+        id:      SHOW_COMPLETED,
         display: "Completed"
     }
 ];
@@ -28,10 +28,10 @@ export const filters = [
 let nextTodoId = 0;
 
 /* Action Creators
-============================= */
+ ============================= */
 export const addTodo = (text) => {
     return {
-        id: nextTodoId++,
+        id:   nextTodoId++,
         type: ADD_TODO,
         text
     };
