@@ -60,9 +60,8 @@ const renderFilters = () => {
     filtersElem.html(filtersHtml);
 };
 
-//store.subscribe(renderTodoItems);
-//store.subscribe(renderFilters);
 store.subscribe(render);
+render();
 
 /* Event handlers
  ============================= */
@@ -95,11 +94,3 @@ filtersElem.click(".filter-btn", event => {
         store.dispatch(setVisibilityFilter(filter));
     }
 });
-
-
-/* Dispatch actions
- ============================= */
-store.dispatch(addTodo("Learn Redux"));
-store.dispatch(addTodo("Do something!"));
-//store.dispatch(toggleTodo(1));
-//store.dispatch(setVisibilityFilter(SHOW_ACTIVE));
