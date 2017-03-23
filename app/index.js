@@ -1,48 +1,18 @@
-import expect from "expect";
-import deepFreeze from "deep-freeze-strict";
+import { createStore, applyMiddleware } from "redux";
+import createLogger from "redux-logger";
 
-/* Reducers
- ============================= */
-const todos = (state = [], action) => {
-    switch (action.type) {
-        case "ADD_TODO":
-            return [
-                ...state,
-                {
-                    id:        action.id,
-                    text:      action.text,
-                    completed: false
-                }
-            ];
-        default:
-            return state;
-    }
-};
+import $ from "jquery";
+
+import { todoApp } from "./reducers";
+import { addTodo, toggleTodo, setVisibilityFilter, SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED } from "./actions";
+
+const logger = createLogger();
+const store = createStore(todoApp, applyMiddleware(logger));
 
 
-/* Tests
- ============================= */
-const testAddTodo = () => {
-    const stateBefore = [];
-    const action      = {
-        type: "ADD_TODO",
-        text: "Learn Redux",
-        id:   0
-    };
-    const stateAfter  = [
-        {
-            text:      "Learn Redux",
-            id:        0,
-            completed: false
-        }
-    ];
-    
-    deepFreeze(stateBefore);
-    deepFreeze(action);
-    
-    expect(todos(stateBefore, action)).toEqual(stateAfter);
-};
+store.dispatch(addTodo("Learn redux!!!"));
+store.dispatch(toggleTodo(0));
 
-testAddTodo();
 
-console.debug("All test passed!");
+
+
